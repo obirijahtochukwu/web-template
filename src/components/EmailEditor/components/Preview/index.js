@@ -8,7 +8,8 @@ import useTranslation from "../../translation";
 const Preview = (props) => {
   const { clearStyles } = props;
   const { t } = useTranslation();
-  const { previewMode, bodySettings, blockList, setSelectionRange } = useContext(GlobalContext);
+  const { previewMode, bodySettings, blockList, setSelectionRange } =
+    useContext(GlobalContext);
 
   useEffect(() => {
     const onSelectionChange = throttle(() => {
@@ -46,19 +47,32 @@ const Preview = (props) => {
             ...bodySettings.styles,
           }}
         >
-          <div className="margin-auto" style={{ maxWidth: "100%", width: "100%" }}>
+          <div
+            className="margin-auto"
+            style={{ maxWidth: "100%", width: "100%" }}
+          >
             {blockList.length ? (
               <>
                 {blockList.map((block, index) => {
                   return (
                     <Fragment key={index}>
-                      <Column block={block} blockIndex={index} clearStyles={clearStyles} />
+                      <Column
+                        block={block}
+                        blockIndex={index}
+                        clearStyles={clearStyles}
+                      />
                     </Fragment>
                   );
                 })}
-                <div className="relative block-drag-label-content" data-index={blockList.length} data-position="bottom">
+                <div
+                  className="relative block-drag-label-content"
+                  data-index={blockList.length}
+                  data-position="bottom"
+                >
                   <div className="absolute block-move-bottom">
-                    <span className="block-tools-drag_here">{t("drag_block_here")}</span>
+                    <span className="block-tools-drag_here">
+                      {t("drag_block_here")}
+                    </span>
                   </div>
                 </div>
               </>

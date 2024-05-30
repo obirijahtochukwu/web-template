@@ -70,7 +70,7 @@ const RichText = ({ index, textBlock, styles }) => {
     "72px",
   ];
 
-  const fontname_configs = ["sans-serif", "Arial", "仿宋", "黑体", "Verdana", "Times New Roman", "Garamond", "Georgia", "Courier New", "cursive","Golden-Ranger"];
+  const fontname_configs = ["sans-serif", "Arial", "仿宋", "黑体", "Verdana", "Times New Roman", "Garamond", "Georgia", "Courier New", "cursive"];
 
   const setTextContent = () => {
     const indexArray = index.split("-");
