@@ -17,6 +17,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'Golden-Ranger';
+  src: url('https://megadolls-devteam.s3.us-west-2.amazonaws.com/static/fonts/Golden+Ranger.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

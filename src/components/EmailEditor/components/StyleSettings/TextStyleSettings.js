@@ -38,7 +38,7 @@ const TextStyleSettings = () => {
     const fontFamily = findStyleItem(currentItem.data.styles, "fontFamily");
     const fontSize = findStyleItem(currentItem.data.styles, "fontSize");
     const lineHeight = findStyleItem(currentItem.data.styles, "lineHeight");
-    const fontFamilyList = ["sans-serif", "Arial", "仿宋", "黑体", "Verdana", "Times New Roman", "Garamond", "Georgia", "Courier New", "cursive"];
+    const fontFamilyList = ["sans-serif", "Arial", "仿宋", "黑体", "", "Times New Roman", "Garamond", "Georgia", "Courier New", "cursive","Golden-Ranger"];
 
     return (
       <>
