@@ -10,7 +10,9 @@ const createStyleString = (className, styles) => {
 
   for (let item of Object.entries(styles.desktop)) {
     if (item[1] && item[0] !== "contentBackground") {
-      stylesConfig.desktop += `${kebabCase(item[0])}:${typeof item[1] === "number" ? item[1] + "px" : item[1]};`;
+      stylesConfig.desktop += `${kebabCase(item[0])}:${
+        typeof item[1] === "number" ? item[1] + "px" : item[1]
+      };`;
     }
   }
 
@@ -18,7 +20,9 @@ const createStyleString = (className, styles) => {
     let mobile = "";
     for (let item of Object.entries(styles.mobile)) {
       if (item[1] && item[0] !== "contentBackground") {
-        mobile += `${kebabCase(item[0])}:${typeof item[1] === "number" ? item[1] + "px" : item[1]} !important;`;
+        mobile += `${kebabCase(item[0])}:${
+          typeof item[1] === "number" ? item[1] + "px" : item[1]
+        } !important;`;
       }
     }
 
@@ -35,10 +39,18 @@ const createStyleString = (className, styles) => {
 const createStyleTag = (list, styles = "", parentIndex) => {
   const newBlockList = list.map((item, index) => {
     let newItem = item;
-    newItem.styleConfig = createStyleString(parentIndex ? `${parentIndex}-${item.key}-${index}` : `${item.key}-${index}`, item.styles);
+    newItem.styleConfig = createStyleString(
+      parentIndex
+        ? `${parentIndex}-${item.key}-${index}`
+        : `${item.key}-${index}`,
+      item.styles
+    );
 
     if (newItem.contentStyles) {
-      newItem.contentStyleConfig = createStyleString(`${item.key}-content-${index}`, item.contentStyles);
+      newItem.contentStyleConfig = createStyleString(
+        `${item.key}-content-${index}`,
+        item.contentStyles
+      );
 
       if (newItem.contentStyleConfig.mobile) {
         styles += newItem.contentStyleConfig.mobile;
@@ -65,7 +77,8 @@ const createStyleTag = (list, styles = "", parentIndex) => {
     }
 
     if (item.children?.length) {
-      const { newBlockList: childrenList, styles: childrenStyles } = createStyleTag(item.children, styles, index);
+      const { newBlockList: childrenList, styles: childrenStyles } =
+        createStyleTag(item.children, styles, index);
       styles += childrenStyles;
       newItem.children = childrenList;
     }
@@ -82,50 +95,118 @@ const createStyleTag = (list, styles = "", parentIndex) => {
 };
 
 const createImageString = (imageConfig) => {
-  return `<div ${imageConfig.contentStyleConfig.mobile ? `class="${imageConfig.contentStyleConfig.className}"` : ""} 
+  console.log(imageConfig);
+  return `<div ${
+    imageConfig.contentStyleConfig.mobile
+      ? `class="${imageConfig.contentStyleConfig.className}"`
+      : ""
+  } 
   style="${imageConfig.contentStyleConfig.desktop}">
-      <img src="${imageConfig.src}" alt="${imageConfig.alt}" style="max-width:100%;${imageConfig.styleConfig.desktop}" 
-      ${imageConfig.styleConfig.mobile ? `class="${imageConfig.styleConfig.className}"` : ""}/> 
+      <img src="${imageConfig.src}" alt="${
+    imageConfig.alt
+  }" style="max-width:100%;${imageConfig.styleConfig.desktop}" 
+      ${
+        imageConfig.styleConfig.mobile
+          ? `class="${imageConfig.styleConfig.className}"`
+          : ""
+      }/> 
   </div>`;
 };
 
+const createVideoString = (imageConfig) => {
+  console.log(imageConfig);
+  return `<video autoPlay muted loop ${
+    imageConfig.contentStyleConfig.mobile
+      ? `class="${imageConfig.contentStyleConfig.className}"`
+      : ""
+  } 
+  style="${imageConfig.contentStyleConfig.desktop}">
+      <source src="${imageConfig.src}" alt="${
+    imageConfig.alt
+  }" style="max-width:100%;${imageConfig.styleConfig.desktop}" 
+      ${
+        imageConfig.styleConfig.mobile
+          ? `class="${imageConfig.styleConfig.className}"`
+          : ""
+      }/> 
+  </video>`;
+};
+
 const createTextString = (textBlock) => {
-  return `<div ${textBlock.styleConfig.mobile ? `class="${textBlock.styleConfig.className}"` : ""} 
+  return `<div ${
+    textBlock.styleConfig.mobile
+      ? `class="${textBlock.styleConfig.className}"`
+      : ""
+  } 
   style="${textBlock.styleConfig.desktop}">${textBlock.text}</div>`;
 };
 
 const createHeaderString = (headerBlock) => {
-  return `<${headerBlock.type} ${headerBlock.styleConfig.mobile ? `class="${headerBlock.styleConfig.className}"` : ""} 
+  return `<${headerBlock.type} ${
+    headerBlock.styleConfig.mobile
+      ? `class="${headerBlock.styleConfig.className}"`
+      : ""
+  } 
   style="${headerBlock.styleConfig.desktop}">
   ${headerBlock.text}
   </${headerBlock.type}>`;
 };
 
 const createButtonString = (buttonBlock) => {
-  return `<div ${buttonBlock.contentStyleConfig.mobile ? `class="${buttonBlock.contentStyleConfig.className}"` : ""} 
+  return `<div ${
+    buttonBlock.contentStyleConfig.mobile
+      ? `class="${buttonBlock.contentStyleConfig.className}"`
+      : ""
+  } 
   style="${buttonBlock.contentStyleConfig.desktop}">
-    <a ${buttonBlock.styleConfig.mobile ? `class="${buttonBlock.styleConfig.className}"` : ""} 
-    style="${buttonBlock.styleConfig.desktop}" target="_black" href="https://${buttonBlock.linkURL}">${buttonBlock.text}</a>
+    <a ${
+      buttonBlock.styleConfig.mobile
+        ? `class="${buttonBlock.styleConfig.className}"`
+        : ""
+    } 
+    style="${buttonBlock.styleConfig.desktop}" target="_black" href="https://${
+    buttonBlock.linkURL
+  }">${buttonBlock.text}</a>
   </div>`;
 };
 
 const createDividerString = (dividerBLock) => {
-  return `<div ${dividerBLock.contentStyleConfig.mobile ? `class="${dividerBLock.contentStyleConfig.className}"` : ""} 
+  return `<div ${
+    dividerBLock.contentStyleConfig.mobile
+      ? `class="${dividerBLock.contentStyleConfig.className}"`
+      : ""
+  } 
   style="${dividerBLock.contentStyleConfig.desktop}">
-    <div ${dividerBLock.styleConfig.mobile ? `class="${dividerBLock.styleConfig.className}"` : ""} 
+    <div ${
+      dividerBLock.styleConfig.mobile
+        ? `class="${dividerBLock.styleConfig.className}"`
+        : ""
+    } 
     style="${dividerBLock.styleConfig.desktop}"></div>
   </div>`;
 };
 
 const createSocialLinkString = (socialLinkBlock) => {
-  return `<div ${socialLinkBlock.contentStyleConfig.mobile ? `class="${socialLinkBlock.contentStyleConfig.className}"` : ""} 
+  return `<div ${
+    socialLinkBlock.contentStyleConfig.mobile
+      ? `class="${socialLinkBlock.contentStyleConfig.className}"`
+      : ""
+  } 
   style="${socialLinkBlock.contentStyleConfig.desktop}">
     ${socialLinkBlock.list
       .map((socialLinkItem) => {
         const { image, title, linkURL } = socialLinkItem;
-        return `<a target="_black" href="https://${linkURL}" style="${socialLinkBlock.styleConfig.desktop};display:inline-block;">
-        <img src="${image}" alt="${title}" style="width:${socialLinkBlock.imageWidth}px;" 
-        ${socialLinkBlock.styleConfig.mobile ? `class="${socialLinkBlock.styleConfig.className}"` : ""}/> 
+        return `<a target="_black" href="https://${linkURL}" style="${
+          socialLinkBlock.styleConfig.desktop
+        };display:inline-block;">
+        <img src="${image}" alt="${title}" style="width:${
+          socialLinkBlock.imageWidth
+        }px;" 
+        ${
+          socialLinkBlock.styleConfig.mobile
+            ? `class="${socialLinkBlock.styleConfig.className}"`
+            : ""
+        }/> 
       </a>`;
       })
       .join("")}
@@ -136,17 +217,29 @@ const blockListToHtml = (blockList, bodySettings) => {
   let content = "";
   blockList.forEach((item) => {
     if (item.key === "column") {
-      content += `<div ${item.styleConfig.mobile ? `class="${item.styleConfig.className}"` : ""} 
+      content += `<div ${
+        item.styleConfig.mobile ? `class="${item.styleConfig.className}"` : ""
+      } 
       style="${item.styleConfig.desktop};width:100%;display:block;">
-        <table ${item.contentStyleConfig.mobile ? `class="${item.contentStyleConfig.className}"` : ""} 
-        style="width:100%;max-width:${bodySettings.contentWidth}px;margin:0 auto;${item.contentStyleConfig.desktop}">
+        <table ${
+          item.contentStyleConfig.mobile
+            ? `class="${item.contentStyleConfig.className}"`
+            : ""
+        } 
+        style="width:100%;max-width:${
+          bodySettings.contentWidth
+        }px;margin:0 auto;${item.contentStyleConfig.desktop}">
       <tbody><tr>${blockListToHtml(item.children)}</tr></tbody>
        </table></div>`;
     }
 
     if (item.key === "content") {
-      content += `<td ${item.styleConfig.mobile ? `class="${item.styleConfig.className}"` : ""} 
-      style="width:${item.width}; ${item.styleConfig.desktop}">${blockListToHtml(item.children)}</td>`;
+      content += `<td ${
+        item.styleConfig.mobile ? `class="${item.styleConfig.className}"` : ""
+      } 
+      style="width:${item.width}; ${
+        item.styleConfig.desktop
+      }">${blockListToHtml(item.children)}</td>`;
     }
 
     if (item.key === "text") {
@@ -159,6 +252,10 @@ const blockListToHtml = (blockList, bodySettings) => {
 
     if (item.key === "image") {
       content += createImageString(item);
+    }
+
+    if (item.key === "video") {
+      content += createVideoString(item);
     }
 
     if (item.key === "button") {

@@ -1,10 +1,10 @@
-@import './RichText.css';
-@import './ImageBlock.css';
-@import './Sidebar.css';
-@import './Preview.css';
-@import './Header.css';
-@import './Columns.css';
-@import './RightSettings.css';
+@import "./RichText.css";
+@import "./ImageBlock.css";
+@import "./Sidebar.css";
+@import "./Preview.css";
+@import "./Header.css";
+@import "./Columns.css";
+@import "./RightSettings.css";
 
 .email-editor * {
   box-sizing: border-box;
@@ -12,7 +12,7 @@
 
 :root {
   --block-active-border: rgb(76, 185, 234);
-  --block-hover-border: #6FA4BD;
+  --block-hover-border: #6fa4bd;
   --block-empty-content-color: #2faade;
   --block-empty-content-background: #dbeafe;
 
@@ -39,7 +39,7 @@
   --header-drawer-close-hover-bg-color: #6b7280;
   --header-drawer-head-bg-color: #f3f4f6;
 
-  --right-settings-font-color: #5E6875;
+  --right-settings-font-color: #5e6875;
   --right-settings-title-font-color: #94a3b8;
   --right-settings-block-title-font-color: #374151;
   --right-settings-block-title-background-color: #f1f5f9;
@@ -51,12 +51,11 @@
   --align-style-item-active-color: #6b7280;
   --align-style-item-un-active-color: #e5e7eb;
 
-
-  --blue-500: #3B82F6;
+  --blue-500: #3b82f6;
   --gray-400: #9ca3af;
   --slate-100: #f1f5f9;
-  --red-100: #FEE2E2;
-  --red-500: #EF4444;
+  --red-100: #fee2e2;
+  --red-500: #ef4444;
 }
 
 img {
@@ -180,9 +179,7 @@ a:hover {
   text-decoration: underline;
 }
 
-
 @keyframes shake {
-
   0%,
   100% {
     transform: translateX(0) rotate(0);

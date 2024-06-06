@@ -177,6 +177,30 @@ const getBlockConfigsList = (t) => {
       },
     },
     {
+      name: t("Video"),
+      key: "video",
+      src: "",
+      alt: "Video",
+      type: "video",
+      linkURL: "",
+      contentStyles: {
+        desktop: {
+          paddingTop: 12,
+          paddingBottom: 12,
+          paddingLeft: 12,
+          paddingRight: 12,
+          textAlign: "center",
+        },
+        mobile: {},
+      },
+      styles: {
+        desktop: {
+          width: "auto",
+        },
+        mobile: {},
+      },
+    },
+    {
       name: t("social_link"),
       key: "social_link",
       list: [
@@ -213,7 +237,12 @@ const getBlockConfigsList = (t) => {
         mobile: {},
       },
       styles: {
-        desktop: { paddingTop: 4, paddingBottom: 4, paddingLeft: 6, paddingRight: 6 },
+        desktop: {
+          paddingTop: 4,
+          paddingBottom: 4,
+          paddingLeft: 6,
+          paddingRight: 6,
+        },
         mobile: {},
       },
     },

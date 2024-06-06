@@ -14,6 +14,9 @@ import {
   faImage,
   faShareAltSquare,
   faUpload,
+  faFileVideo,
+  faPhotoVideo,
+  faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import { GlobalContext } from "../../reducers";
 import { Input, Spin } from "antd";
@@ -25,6 +28,7 @@ import useDataSource from "../../configs/useDataSource";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { api_url } from "../../../../lib/utils";
+import VideosElement from "./videos";
 
 const LeftSideBar = (props) => {
   const { clearStyles } = props;
@@ -33,7 +37,7 @@ const LeftSideBar = (props) => {
   const [currentSideBarKey, setCurrentSideBarKey] = useState("blocks");
   const { t } = useTranslation();
   const { blockConfigsList } = useDataSource();
-
+  console.log(currentSideBarKey);
   const sidebarTabsList = [
     {
       name: t("blocks"),
@@ -44,6 +48,11 @@ const LeftSideBar = (props) => {
       name: t("photos"),
       icon: faImages,
       key: "photos",
+    },
+    {
+      name: t("videos"),
+      icon: faVideo,
+      key: "videos",
     },
   ];
   const [photos, setPhotos] = useState({
@@ -87,21 +96,21 @@ const LeftSideBar = (props) => {
     setActionType("add");
   };
 
-  const [img, setImg] = useState("");
   const [imgs, setImgs] = useState([]);
+  const [loading, setLoading] = useState({ state: false, value: 0 });
 
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 10,
     accept: {
-      "image/png": [".png"],
       "image/jpeg": [".jpeg"],
+      "image/png": [".png"],
     },
     onDrop: (acceptedFiles) => {
       const formData = new FormData();
+      setLoading({ state: true, value: imgs.length + 1 });
       formData.append(`image`, acceptedFiles[0]);
-
       axios
-        .post(api_url, formData, {
+        .post(api_url + "upload_image/", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -123,6 +132,12 @@ const LeftSideBar = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (loading.value == imgs.length) {
+      setLoading({ state: false, value: 0 });
+    }
+  }, [loading.state, imgs]);
+
   const blocksElement = () => {
     return (
       <motion.div
@@ -134,7 +149,7 @@ const LeftSideBar = (props) => {
         key="blocks"
       >
         <div className="side-bar-blocks-container">
-          {blockConfigsList.map((item) => {
+          {blockConfigsList.map((item, idx) => {
             return (
               <div
                 className="side-bar-blocks-item"
@@ -143,13 +158,22 @@ const LeftSideBar = (props) => {
                 key={item.key}
                 onDragEnd={dragEnd}
                 onDragStart={dragStart(item)}
+                onClick={() =>
+                  idx == 5 || idx == 6
+                    ? setCurrentSideBarKey(
+                        idx == 5 ? "photos" : idx == 6 ? "videos" : ""
+                      )
+                    : console.log("")
+                }
               >
                 <div className="sidebar-block">
                   <FontAwesomeIcon
-                    icon={icons[item.key]}
+                    icon={idx == 6 ? faVideo : icons[item.key]}
                     className="sidebar-block-icon"
                   />
-                  <div className="sidebar-block-text">{item.name}</div>
+                  <div className="sidebar-block-text">
+                    {idx == 5 ? "Image" : item.name}
+                  </div>
                 </div>
               </div>
             );
@@ -159,66 +183,13 @@ const LeftSideBar = (props) => {
     );
   };
 
-  const searchPhotos = (value) => {
-    setPhotos({ ...photos, list: [], isLoading: true });
-    fetchPhotos(1, "40", value).then((response) =>
-      setPhotos({
-        ...photos,
-        list: response.photos,
-        isLoading: false,
-        query: value,
-        pagination: 1,
-      })
-    );
-  };
+  const imageBlock = blockConfigsList.find(({ key }) => key === "image");
 
   const photosElement = () => {
-    const imageBlock = blockConfigsList.find(({ key }) => key === "image");
-    let leftHeight = 0;
-    let rightHeight = 0;
-    let leftPhotos = [];
-    let rightPhotos = [];
-    if (!photos.list) {
-      fetchPhotos(photos.pagination, "20", photos.query).then((response) =>
-        setPhotos({
-          ...photos,
-          list: response.photos,
-          isLoading: false,
-          scrollLoading: false,
-        })
-      );
-    } else {
-      photos.list.forEach((item) => {
-        //  假设图片显示的宽度为200px,高度为自适应,则图片的高度为200/图片宽度*图片高度
-        const { height, width } = item;
-        const imageHeight = (200 / width) * height;
-        if (leftHeight <= rightHeight) {
-          leftPhotos.push(item);
-          leftHeight += imageHeight;
-        } else {
-          rightPhotos.push(item);
-          rightHeight += imageHeight;
-        }
-      });
-    }
-
-    const openPexels = () => {
-      window.open("https://www.pexels.com");
-    };
-
     const numOfImg = imgs.length / 2;
 
     return (
       <motion.div className="photo-container">
-        <div className="margin-bottom-12">
-          <Input.Search
-            onSearch={searchPhotos}
-            loading={photos.isLoading || photos.scrollLoading}
-          />
-          <div className="pexels-link" onClick={openPexels}>
-            {t("powered_by_pexels")}
-          </div>
-        </div>
         <div
           className=" w-full h-fit py-10 mb-5 border-2 border-gray-300 border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer bg-gray-50"
           {...getRootProps()}
@@ -235,37 +206,40 @@ const LeftSideBar = (props) => {
           </p>
         </div>
         <div className="photos-body">
-          <div className="photos-container default-scrollbar">
-            {imgs?.map(({ image_url }, index) => (
-              <motion.div
-                initial={{ y: -index * 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                key={index}
-                draggable
-                onDragEnd={dragEnd}
-                onDragStart={dragStart({
-                  ...imageBlock,
-                  src: image_url,
-                  alt: image_url,
-                })}
-                className="photo-item"
-              >
-                <img
-                  src={image_url}
-                  alt={image_url}
-                  style={{ background: "blue" }}
-                  className="width-full"
-                />
-              </motion.div>
-            ))}
+          <div className="photos-container overflow-auto !h-[calc(100%-150px)] default-scrollbar">
+            {!loading.state
+              ? imgs?.map(({ image_url }, index) => (
+                  <motion.div
+                    initial={{ y: -index * 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    key={index}
+                    draggable
+                    onDragEnd={dragEnd}
+                    onDragStart={dragStart({
+                      ...imageBlock,
+                      src: image_url,
+                      alt: image_url,
+                    })}
+                    className="photo-item"
+                  >
+                    <img
+                      src={image_url}
+                      alt={image_url}
+                      className="width-full"
+                    />
+                  </motion.div>
+                ))
+              : Array(6)
+                  .fill("")
+                  .map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="skeleton h-full w-full mx-2 truncate bg-skeleton text-base font-medium text-muted-foreground"
+                    ></div>
+                  ))}
           </div>
           {photos.scrollLoading && (
             <div className="scroll-loading-context">{t("loading")}</div>
-          )}
-          {photos.isLoading && (
-            <div className="loading-spinner">
-              <Spin />
-            </div>
           )}
         </div>
       </motion.div>
@@ -307,8 +281,11 @@ const LeftSideBar = (props) => {
       </div>
       <div className="side-bar-content">
         <AnimatePresence mode="wait">
-          {currentSideBarKey === "blcks" && blocksElement()}
-          {currentSideBarKey !== "potos" && photosElement()}
+          {currentSideBarKey === "blocks" && blocksElement()}
+          {currentSideBarKey == "photos" && photosElement()}
+          {currentSideBarKey == "videos" && (
+            <VideosElement clearStyles={clearStyles} />
+          )}
         </AnimatePresence>
       </div>
     </div>

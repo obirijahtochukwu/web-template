@@ -7,7 +7,8 @@ const en = {
   content: "Content",
   body_settings: "Theme Settings",
   pre_header: "Pre-header",
-  pre_header_description: "The pre-header is a short summary text that follows the subject line when viewing an email in the inbox.",
+  pre_header_description:
+    "The pre-header is a short summary text that follows the subject line when viewing an email in the inbox.",
   confirm: "Confirm",
   cancel: "Cancel",
   add_blocks: "Add blocks",
@@ -18,7 +19,8 @@ const en = {
   column_settings: "Column Settings",
   column_styles: "Column Styles",
   column_delete: "Delete Column",
-  column_delete_desc: "Are you sure you want to delete {{count}} extra columns? ",
+  column_delete_desc:
+    "Are you sure you want to delete {{count}} extra columns? ",
 
   // text block
   text: "Text",
@@ -53,6 +55,14 @@ const en = {
   image_alt: "Image Alt",
   image_styles: "Image Styles",
   image_settings: "Image Settings",
+
+  // video block
+  image: "Video",
+  image_action: "Video Action",
+  image_url: "Video URL",
+  image_alt: "Video Alt",
+  image_styles: "Video Styles",
+  image_settings: "Video Settings",
 
   // social link block
   social_link: "Social Link",

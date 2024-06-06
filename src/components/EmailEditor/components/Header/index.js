@@ -1,6 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDesktop, faMobileAlt, faUndo, faRedo, faEye, faTabletAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDesktop,
+  faMobileAlt,
+  faUndo,
+  faRedo,
+  faEye,
+  faTabletAlt,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import classNames from "../../utils/classNames";
 // import { deepClone } from "../../utils/helpers";
 import { GlobalContext } from "../../reducers";
@@ -9,7 +17,15 @@ import dataToHtml from "../../utils/dataToHTML";
 import { deepClone } from "../../utils/helpers";
 
 const Header = () => {
-  const { previewMode, setPreviewMode, bodySettings, blockList, actionType, setBlockList, setBodySettings } = useContext(GlobalContext);
+  const {
+    previewMode,
+    setPreviewMode,
+    bodySettings,
+    blockList,
+    actionType,
+    setBlockList,
+    setBodySettings,
+  } = useContext(GlobalContext);
   const [modalPreview, setModalPreview] = useState(previewMode);
   const [blockListHistory, setBlockListHistory] = useState({
     histories: [],
@@ -194,7 +210,10 @@ const Header = () => {
         <div
           className="header-drawer-body"
           style={{
-            width: (modalPreview === "desktop" && "100%") || (modalPreview === "tablet" && 768) || (modalPreview === "mobile" && 364),
+            width:
+              (modalPreview === "desktop" && "100%") ||
+              (modalPreview === "tablet" && 768) ||
+              (modalPreview === "mobile" && 364),
           }}
         >
           <div className="header-drawer-head">
@@ -204,7 +223,10 @@ const Header = () => {
           </div>
           <div className="header-drawer-content">
             <iframe
-              src={"data:text/html," + encodeURIComponent(dataToHtml({ bodySettings, blockList }))}
+              src={
+                "data:text/html," +
+                encodeURIComponent(dataToHtml({ bodySettings, blockList }))
+              }
               title="preview"
               scrolling="no"
               className="header-drawer-iframe"

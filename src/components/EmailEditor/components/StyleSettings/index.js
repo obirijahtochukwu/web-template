@@ -8,6 +8,7 @@ import ButtonStyleSettings from "./ButtonStyleSettings";
 import DividerStyleSettings from "./DividerStyleSettings";
 import ImageStyleSettings from "./ImageStyleSettings";
 import SocialLinkSettings from "./SocialLinkSettings";
+import VideoStyleSettings from "./video-settings";
 
 const StyleSettings = () => {
   const { currentItem } = useContext(GlobalContext);
@@ -20,6 +21,7 @@ const StyleSettings = () => {
       {currentItem?.data.key === "button" && <ButtonStyleSettings />}
       {currentItem?.data.key === "divider" && <DividerStyleSettings />}
       {currentItem?.data.key === "image" && <ImageStyleSettings />}
+      {currentItem?.data.key === "video" && <VideoStyleSettings />}
       {currentItem?.data.key === "social_link" && <SocialLinkSettings />}
     </>
   );

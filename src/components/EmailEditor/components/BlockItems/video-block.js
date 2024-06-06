@@ -3,7 +3,7 @@ import { GlobalContext } from "../../reducers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 
-const ImageBlock = ({ blockItem }) => {
+const VideoBlock = ({ blockItem }) => {
   const { src, alt } = blockItem;
   const { previewMode } = useContext(GlobalContext);
   const styles =
@@ -22,7 +22,14 @@ const ImageBlock = ({ blockItem }) => {
     <div className="relative">
       <div style={{ ...contentStyles }}>
         {src ? (
-          <img src={src} style={styles} alt={alt} className="inline-block" />
+          <video autoPlay muted loop>
+            <source
+              src={src}
+              type="video/mp4"
+              style={{ background: "blue" }}
+              className="width-full"
+            />
+          </video>
         ) : (
           <div
             className="empty-image"
@@ -39,4 +46,4 @@ const ImageBlock = ({ blockItem }) => {
   );
 };
 
-export default ImageBlock;
+export default VideoBlock;

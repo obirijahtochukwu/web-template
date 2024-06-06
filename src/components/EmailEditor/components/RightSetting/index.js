@@ -8,7 +8,8 @@ import useLayout from "../../utils/useStyleLayout";
 import useTranslation from "../../translation";
 
 const RightSetting = () => {
-  const { currentItem, isDragStart, bodySettings, setBodySettings } = useContext(GlobalContext);
+  const { currentItem, isDragStart, bodySettings, setBodySettings } =
+    useContext(GlobalContext);
   const { t } = useTranslation();
   const { cardItemElement } = useLayout();
   const blockTitle = () => {
@@ -33,6 +34,9 @@ const RightSetting = () => {
       case "image":
         title = t("image_settings");
         break;
+      case "video":
+        title = t("video_settings");
+        break;
       case "social_link":
         title = t("social_link_settings");
         break;
@@ -43,7 +47,10 @@ const RightSetting = () => {
   };
 
   const colorChange = (key) => (color) => {
-    setBodySettings({ ...bodySettings, styles: { ...bodySettings.styles, [key]: color.hex } }, "set_body_settings");
+    setBodySettings(
+      { ...bodySettings, styles: { ...bodySettings.styles, [key]: color.hex } },
+      "set_body_settings"
+    );
   };
 
   const themeElement = () => {
@@ -51,10 +58,19 @@ const RightSetting = () => {
       <>
         <div className="subject-settings">{t("body_settings")}</div>
         <div className="margin-top-32">
-          {cardItemElement(t("text_color"), <ColorPicker color={bodySettings.styles.color} setColor={colorChange("color")} />)}
+          {cardItemElement(
+            t("text_color"),
+            <ColorPicker
+              color={bodySettings.styles.color}
+              setColor={colorChange("color")}
+            />
+          )}
           {cardItemElement(
             t("email_theme_background_color"),
-            <ColorPicker color={bodySettings.styles.backgroundColor} setColor={colorChange("backgroundColor")} />
+            <ColorPicker
+              color={bodySettings.styles.backgroundColor}
+              setColor={colorChange("backgroundColor")}
+            />
           )}
           {cardItemElement(
             t("line_height"),
@@ -64,7 +80,12 @@ const RightSetting = () => {
               min={0}
               max={900}
               value={Number(bodySettings.contentWidth)}
-              onChange={(value) => setBodySettings({ ...bodySettings, contentWidth: value }, "set_body_settings")}
+              onChange={(value) =>
+                setBodySettings(
+                  { ...bodySettings, contentWidth: value },
+                  "set_body_settings"
+                )
+              }
             />
           )}
           <div>
@@ -72,7 +93,12 @@ const RightSetting = () => {
             <Input
               className="margin-top-12"
               value={bodySettings.preHeader}
-              onChange={(event) => setBodySettings({ ...bodySettings, preHeader: event.target.value }, "set_body_settings")}
+              onChange={(event) =>
+                setBodySettings(
+                  { ...bodySettings, preHeader: event.target.value },
+                  "set_body_settings"
+                )
+              }
             />
             <div className="pre_header-desc">{t("pre_header_description")}</div>
           </div>
