@@ -177,11 +177,11 @@ const getBlockConfigsList = (t) => {
       },
     },
     {
-      name: t("Video"),
+      name: t("video"),
       key: "video",
       src: "",
       alt: "Video",
-      type: "video",
+      type: "link",
       linkURL: "",
       contentStyles: {
         desktop: {

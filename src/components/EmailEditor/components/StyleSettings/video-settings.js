@@ -184,7 +184,7 @@ const VideoStyleSettings = () => {
   return (
     <div className="margin-y-30">
       {actionSettings()}
-      {videoSettings()}
+      {/* {videoSettings()} */}
       {videoStyleSettings()}
     </div>
   );

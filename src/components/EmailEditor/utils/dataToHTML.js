@@ -95,7 +95,6 @@ const createStyleTag = (list, styles = "", parentIndex) => {
 };
 
 const createImageString = (imageConfig) => {
-  console.log(imageConfig);
   return `<div ${
     imageConfig.contentStyleConfig.mobile
       ? `class="${imageConfig.contentStyleConfig.className}"`
@@ -114,22 +113,25 @@ const createImageString = (imageConfig) => {
 };
 
 const createVideoString = (imageConfig) => {
-  console.log(imageConfig);
-  return `<video autoPlay muted loop ${
+  console.log(imageConfig.styleConfig.desktop);
+  return `
+  <div ${
     imageConfig.contentStyleConfig.mobile
       ? `class="${imageConfig.contentStyleConfig.className}"`
       : ""
   } 
   style="${imageConfig.contentStyleConfig.desktop}">
-      <source src="${imageConfig.src}" alt="${
-    imageConfig.alt
-  }" style="max-width:100%;${imageConfig.styleConfig.desktop}" 
+      <video  controls="controls" style="max-width:100%;${
+        imageConfig.styleConfig.desktop
+      }" 
       ${
         imageConfig.styleConfig.mobile
           ? `class="${imageConfig.styleConfig.className}"`
           : ""
-      }/> 
-  </video>`;
+      }>
+      <source src="${imageConfig.src}" alt="${imageConfig.alt}" /></video> 
+  </div>
+  `;
 };
 
 const createTextString = (textBlock) => {

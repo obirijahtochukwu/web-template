@@ -19,14 +19,22 @@ const VideoBlock = ({ blockItem }) => {
         };
 
   return (
-    <div className="relative">
+    <div style={{ zIndex: "999" }} className="relative">
       <div style={{ ...contentStyles }}>
         {src ? (
-          <video autoPlay muted loop>
+          <video
+            // style={{ width: "90px" }}
+            className="inline-block"
+            // autoPlay="false"
+            style={{ zIndex: "999" }}
+            controls="controls"
+            // preload="none"
+            onClick={() => console.log("'jjhxgd")}
+          >
             <source
               src={src}
               type="video/mp4"
-              style={{ background: "blue" }}
+              style={{ background: "blue", width: "50px" }}
               className="width-full"
             />
           </video>

@@ -57,12 +57,12 @@ const en = {
   image_settings: "Image Settings",
 
   // video block
-  image: "Video",
-  image_action: "Video Action",
-  image_url: "Video URL",
-  image_alt: "Video Alt",
-  image_styles: "Video Styles",
-  image_settings: "Video Settings",
+  video: "Video",
+  video_action: "Video Action",
+  video_url: "Video URL",
+  video_alt: "Video Alt",
+  video_styles: "Video Styles",
+  video_settings: "Video Settings",
 
   // social link block
   social_link: "Social Link",

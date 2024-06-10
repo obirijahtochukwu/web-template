@@ -7,7 +7,8 @@ const zh = {
   content: "内容",
   body_settings: "邮件主题设置",
   pre_header: "预标题",
-  pre_header_description: "预标题是在收件箱中查看电子邮件时跟随主题行的简短摘要文本。",
+  pre_header_description:
+    "预标题是在收件箱中查看电子邮件时跟随主题行的简短摘要文本。",
   confirm: "确认",
   cancel: "取消",
   add_blocks: "请添加块",
@@ -53,6 +54,14 @@ const zh = {
   image_url: "图片URL",
   image_alt: "图片alt",
   image_styles: "图片样式",
+
+  // image block
+  video: "视频",
+  video_settings: "视频设置",
+  video_action: "点击视频跳转",
+  video_url: "视频URL",
+  video_alt: "视频alt",
+  video_styles: "视频样式",
 
   // social link block
   social_link: "社交链接",
