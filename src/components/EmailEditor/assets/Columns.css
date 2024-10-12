@@ -17,12 +17,12 @@
     opacity: 1;
 }
 
-.block-focus>.hover-visible::after {
+.block-focus > .hover-visible::after {
     outline: 2px solid var(--block-active-border);
     opacity: 1;
 }
 
-.mobile-block-focus>.hover-visible::after {
+.mobile-block-focus > .hover-visible::after {
     margin-left: -50px;
     margin-right: -50px;
 }

@@ -19,7 +19,7 @@ const VideoBlock = ({ blockItem }) => {
         };
 
   return (
-    <div style={{ zIndex: "999" }} className="relative">
+    <div style={{ zIndex: "" }} className="relative">
       <div style={{ ...contentStyles }}>
         {src ? (
           <video
