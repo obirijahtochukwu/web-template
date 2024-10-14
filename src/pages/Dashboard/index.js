@@ -24,7 +24,15 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <Header emailEditorEl={emailEditorRef} setLanguage={setLanguage} />
-      <div className="dashboard-content">{emailData && <EmailEditor ref={emailEditorRef} defaultBlockList={emailData} language={language} />}</div>
+      <div className="dashboard-content">
+        {emailData && (
+          <EmailEditor
+            ref={emailEditorRef}
+            defaultBlockList={emailData}
+            language={language}
+          />
+        )}
+      </div>
     </div>
   );
 }
