@@ -43,7 +43,7 @@ export default function Template({
       <div className="">
         <Icons.template className=" w-4" />
       </div>
-      <div className=" truncate">{name}</div>
+      <div className=" truncate">{name}</div> {template.id}
       <DropdownMenu className={"ml-auto w-fit h-fit"}>
         <Icons.bar className="cursor-pointer h-3 w-3 opacity-60" />
         <DropdownMenuContent>

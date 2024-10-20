@@ -4,6 +4,7 @@ import { Icons } from "./icons";
 import Subcriber from "./subcriber";
 import Template from "./template";
 import SkeletonLoader from "./skeleton";
+import { usePagination } from "../EmailEditor/utils/auth";
 
 export default function Templates({
   isOpen,
@@ -16,10 +17,10 @@ export default function Templates({
   isLoading,
 }) {
   const [inputValue, setInputValue] = useState("");
-
   const _templates = templates.filter((item) =>
-    item.name.toLowerCase().includes(inputValue.toLowerCase())
+    item?.name.toLowerCase().includes(inputValue.toLowerCase())
   );
+  const { Buttons, currentPage } = usePagination(_templates.length);
 
   const is_empty_list = _templates.length > 0 ? false : true;
 
@@ -42,9 +43,7 @@ export default function Templates({
         />
       </section>
       <section
-        className={`${
-          isLoading ? " overflow-hidden" : "overflow-y-auto"
-        } grid grid-cols-12 gap-5 mt-6 pr-2 h-40 custom-scrollbar`}
+        className={` grid grid-cols-12 gap-5 mt-6 pr-2 h-40 custom-scrollbar`}
       >
         {isLoading ? (
           Array(9)
@@ -57,18 +56,23 @@ export default function Templates({
             Oops! No template found
           </div>
         ) : (
-          _templates.map((props, idx) => (
-            <Template
-              {...props}
-              templates={templates}
-              setTemplates={setTemplates}
-              key={idx}
-              setSendTo={setSendTo}
-              edit_template={edit_template}
-            />
-          ))
+          _templates.map(
+            (props, idx) =>
+              idx < currentPage * 9 &&
+              idx > currentPage * 9 - 10 && (
+                <Template
+                  {...props}
+                  templates={templates}
+                  setTemplates={setTemplates}
+                  key={idx}
+                  setSendTo={setSendTo}
+                  edit_template={edit_template}
+                />
+              )
+          )
         )}
       </section>
+      {_templates.length ? <Buttons /> : null}
     </article>
   );
 }

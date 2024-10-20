@@ -3,6 +3,7 @@ import Select from "./select";
 import { Icons } from "./icons";
 import Subcriber from "./subcriber";
 import SkeletonLoader from "./skeleton";
+import { sendToSubcribers } from "../EmailEditor/utils/auth";
 
 export default function Subscribers({
   isOpen,
@@ -22,6 +23,16 @@ export default function Subscribers({
   const is_empty_list = subs.length > 0 ? false : true;
 
   const _props = { subscribers, setSubscribers, setSendTo };
+  console.log(sendTo);
+
+  const send = () => {
+    const recipients = subscribers
+      .filter((item) => item.selected == true)
+      .map((item) => `${item}`);
+    sendToSubcribers({ template: sendTo, recipients });
+    setSendTo({});
+  };
+
   return (
     <>
       <Select
@@ -83,7 +94,10 @@ export default function Subscribers({
         >
           Cancel
         </button>
-        <button className=" bg-primary h-9 w-20 text-white font-medium text-base mt-6 rounded-md shadow-2xl">
+        <button
+          onClick={send}
+          className=" bg-primary h-9 w-20 text-white font-medium text-base mt-6 rounded-md shadow-2xl"
+        >
           Send
         </button>
       </footer>

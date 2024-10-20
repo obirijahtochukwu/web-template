@@ -101,4 +101,23 @@ export const Icons = {
       />
     </svg>
   ),
+  dropdown: (props) => (
+    <svg
+      width="12"
+      height="6"
+      viewBox="0 0 12 6"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M10.6199 1.22083L6.81655 5.02416C6.36738 5.47333 5.63238 5.47333 5.18322 5.02416L1.37988 1.22083"
+        stroke="black"
+        stroke-opacity="0.7"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  ),
 };

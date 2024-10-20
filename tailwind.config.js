@@ -4,6 +4,7 @@ module.exports = {
     "./src/components/EmailEditor/components/LeftSideBar/*.js",
     "./src/pages/Dashboard/*.{js,ts,jsx,tsx}",
     "./src/components/ui/*.{js,ts,jsx,tsx}",
+    "./src/components/EmailEditor/utils/auth.jsx",
   ],
   theme: {
     extend: {
