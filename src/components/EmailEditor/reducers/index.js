@@ -26,6 +26,8 @@ export const setSelectionRange = (selectionRange) => {
 };
 
 export const setBlockList = (blockList) => {
+  console.log(blockList);
+
   return {
     type: SET_BLOCK_LIST,
     blockList: blockList,
@@ -61,6 +63,8 @@ export const setCurrentItem = (currentItem) => {
 };
 
 export const setBodySettings = (bodySettings) => {
+  console.log(bodySettings);
+
   return {
     type: SET_BODY_SETTINGS,
     bodySettings: bodySettings,

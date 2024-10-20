@@ -28,12 +28,24 @@ const EmailEditor = forwardRef(
     useImperativeHandle(ref, () => ({
       blockList: state.blockList,
       actionType: state.actionType,
-      exportHtml: () =>
-        dataToHtml({
+      exportHtml: () => {
+        return dataToHtml({
           bodySettings: state.bodySettings,
           blockList: state.blockList,
-        }),
+        });
+      },
+      editHtml: (bodySettings, blockList) => {
+        dispatch(setBodySettings(bodySettings));
+        dispatch(setBlockList(blockList));
+      },
+      savedHtml: () => {
+        return {
+          bodysettings: state.bodySettings,
+          blocklist: state.blockList,
+        };
+      },
     }));
+    console.log(state.blockList);
 
     return (
       <GlobalContext.Provider

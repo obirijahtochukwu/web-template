@@ -19,8 +19,7 @@ body {
 
 @font-face {
   font-family: "Golden-Ranger";
-  src: url("https://megadolls-devteam.s3.us-west-2.amazonaws.com/static/fonts/Golden+Ranger.ttf")
-    format("truetype");
+  src: url("https://megadolls-devteam.s3.us-west-2.amazonaws.com/static/fonts/Golden+Ranger.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -102,12 +101,46 @@ code {
 }
 
 .skeleton {
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.5),
-    rgba(255, 255, 255, 0)
-  );
+  background-image: linear-gradient(90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0));
+  background-size: 40px 100%;
+  background-repeat: no-repeat;
+  background-position: left -40px top 0;
+  animation: shine 1s ease infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: right -40px top 0;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgb(0, 0, 0, .05);
+  border-radius: 100px;
+}
+
+/* Handle */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 100px;
+  transition: all 0.2 ease-in;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Skeleton loader animation */
+.skeleton {
+  min-height: 20px;
+  border-radius: 4px;
+}
+
+.skeleton {
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
   background-size: 40px 100%;
   background-repeat: no-repeat;
   background-position: left -40px top 0;

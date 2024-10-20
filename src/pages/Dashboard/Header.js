@@ -1,12 +1,71 @@
-import Subscribers from "./subscribers";
-import { useState } from "react";
+import Modal from "./modal";
+import { useState, useEffect, useReducer } from "react";
+import axios from "axios";
+import { api_url, useData } from "../../components/EmailEditor/utils/auth";
+import SaveModal from "../../components/ui/save-modal";
+import { toast } from "react-toastify";
+import {
+  defaultState,
+  reducer,
+  setBlockList,
+  setBodySettings,
+} from "../../components/EmailEditor/reducers";
 
-const Header = (props) => {
-  const { emailEditorEl, setLanguage } = props;
+const Header = ({ emailEditorEl, setLanguage }) => {
+  const {
+    isLoading,
+    templatesData,
+    subscribersData,
+    fetchSubscribers,
+    fetchTemplates,
+  } = useData();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSave, setIsSave] = useState(false);
   const [data, setData] = useState(null);
+  const [subscribers, setSubscribers] = useState([]);
+  const [templates, setTemplates] = useState([]);
+  const [sendTo, setSendTo] = useState({});
+  const [editTemplate, setEditTemplate] = useState({});
+  const [state, dispatch] = useReducer(reducer, { ...defaultState });
+
   const exportHTML = () => {
     const html = emailEditorEl.current.exportHtml();
+    const blob = new Blob([html], { type: "text/html" });
+    const a = document.createElement("a");
+    setData(html);
+    axios
+      .post(api_url, {
+        name: "New Email Template",
+        subject: "Welcome Email",
+        content: `${html}`,
+      })
+      .then((res) => console.log(res.data).catch((err) => console.log(err)));
+
+    a.download = "email.html";
+    a.href = URL.createObjectURL(blob);
+    a.click();
+  };
+
+  const changeLanguage = (language) => () => {
+    setLanguage(language);
+  };
+
+  const saveTemplate = (name, subject) => {
+    const html = emailEditorEl.current.exportHtml();
+    const { bodysettings, blocklist } = emailEditorEl.current?.savedHtml();
+    axios
+      .post(api_url, {
+        name,
+        subject,
+        bodysettings,
+        blocklist,
+        content: `${html}`,
+      })
+      .then((res) => {
+        toast.success("Template created successfully!");
+        setIsSave(false);
+        fetchTemplates();
+      });
     const blob = new Blob([html], { type: "text/html" });
     const a = document.createElement("a");
     setData(html);
@@ -14,43 +73,77 @@ const Header = (props) => {
     a.download = "email.html";
     a.href = URL.createObjectURL(blob);
     a.click();
-    console.log(typeof blob);
   };
 
-  const changeLanguage = (language) => () => {
-    setLanguage(language);
+  const edit_template = (template) => {
+    const { bodysettings, blocklist } = template;
+    setIsOpen(false);
+    setEditTemplate(template);
+    emailEditorEl.current?.editHtml(bodysettings, blocklist);
   };
 
-  const deploy = () => {
-    console.log(data);
-    const blob = new Blob([data], { type: "text/html" });
-    const a = document.createElement("a");
-    console.log("new");
-    setData(data);
-    a.download = "email.html";
-    a.href = URL.createObjectURL(blob);
-    a.click();
-    console.log(data);
+  const saveEditedTemplate = (name, subject) => {
+    console.log(api_url + editTemplate.id);
+    const { bodysettings, blocklist } = emailEditorEl.current?.savedHtml();
+    const html = emailEditorEl.current.exportHtml();
+    axios
+      .put(`${api_url + editTemplate.id}/`, {
+        ...editTemplate,
+        name,
+        subject,
+        content: `${html}`,
+        bodysettings,
+        blocklist,
+      })
+      .then((res) => {
+        toast.success("Template Edited successfully!");
+        setIsSave(false);
+        setEditTemplate({});
+        fetchTemplates();
+      })
+      .catch((err) => console.log(err));
   };
 
-  const _props = { isOpen, setIsOpen };
+  useEffect(() => {
+    setTemplates(templatesData);
+    setSubscribers(subscribersData);
+  }, [subscribersData, templatesData]);
+
+  const _props = {
+    isLoading,
+    isOpen,
+    setIsOpen,
+    isSave,
+    setIsSave,
+    subscribers,
+    setSubscribers,
+    templates,
+    setTemplates,
+    sendTo,
+    setSendTo,
+    saveTemplate,
+    edit_template,
+    editTemplate,
+    saveEditedTemplate,
+  };
 
   return (
     <div className="dashboard-header">
-      <Subscribers {..._props} />
+      <Modal {..._props} />
+      <SaveModal {..._props} />
       <div className="dashboard-header-title">Email Editor</div>
       <div className="dashboard-header-feature">
-        <div onClick={deploy} className="bg-red-900 text-white p-3 text-base">
-          blytyrsrs
-        </div>
         <div className="dashboard-header-language">
           <span onClick={changeLanguage("en")}>EN</span>/
           <span onClick={changeLanguage("zh")}>中文</span>
         </div>
         <Users onClick={() => setIsOpen(true)} className=" cursor-pointer" />
-        <button className="dashboard-header-subtitle" onClick={exportHTML}>
-          导出htmligyfd
-        </button>
+        <div
+          onClick={() => setIsSave(true)}
+          className=" bg-primary text-white h-9 w-40 rounded-lg flex items-center justify-center text-base font-primary font-semibold cursor-pointer"
+        >
+          {editTemplate.name ? "Save Edit" : "Create Template"}
+        </div>
       </div>
     </div>
   );
@@ -77,3 +170,11 @@ const Users = (props) => {
     </svg>
   );
 };
+
+const subs = [
+  { email: "SkylineInnovator123@gmail.com", selected: false },
+  { email: "QuantumPulse789@gmail.com", selected: false },
+  { email: "TechNovaExplorer@gmail.com", selected: false },
+  { email: "PixelFusion2024@gmail.com", selected: false },
+  { email: "AeroWaveCreator@gmail.com", selected: false },
+];

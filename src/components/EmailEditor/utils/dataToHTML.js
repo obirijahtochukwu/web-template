@@ -113,7 +113,6 @@ const createImageString = (imageConfig) => {
 };
 
 const createVideoString = (imageConfig) => {
-  console.log(imageConfig.styleConfig.desktop);
   return `
   <div ${
     imageConfig.contentStyleConfig.mobile

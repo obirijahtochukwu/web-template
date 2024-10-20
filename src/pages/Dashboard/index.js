@@ -3,16 +3,13 @@ import { useRef, useState } from "react";
 import defaultBlockList from "./defaultBlockList.json";
 import Header from "./Header";
 import { useEffect } from "react";
-// TODO:
-// 1.拷贝功能
-// 2.图片block可以选择pexels的图片
-// 3.图片上传
-// 4.columns 添加可上传背景图片
-// 5.spacer block
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Dashboard() {
   const emailEditorRef = useRef(null);
   const [emailData, setEmailData] = useState(null);
+  const [saveHmtl, setSaveHmtl] = useState({});
   const [language, setLanguage] = useState("en");
 
   useEffect(() => {
@@ -23,6 +20,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
+      <ToastContainer />
       <Header emailEditorEl={emailEditorRef} setLanguage={setLanguage} />
       <div className="dashboard-content">
         {emailData && (

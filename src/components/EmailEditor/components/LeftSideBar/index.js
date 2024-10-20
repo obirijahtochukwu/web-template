@@ -37,7 +37,6 @@ const LeftSideBar = (props) => {
   const [currentSideBarKey, setCurrentSideBarKey] = useState("blocks");
   const { t } = useTranslation();
   const { blockConfigsList } = useDataSource();
-  console.log(currentSideBarKey);
   const sidebarTabsList = [
     {
       name: t("blocks"),
@@ -163,7 +162,7 @@ const LeftSideBar = (props) => {
                     ? setCurrentSideBarKey(
                         idx == 5 ? "photos" : idx == 6 ? "videos" : ""
                       )
-                    : console.log("")
+                    : null
                 }
               >
                 <div className="sidebar-block">
