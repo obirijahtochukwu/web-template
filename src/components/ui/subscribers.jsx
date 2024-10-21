@@ -28,7 +28,9 @@ export default function Subscribers({
   const send = () => {
     const recipients = subscribers
       .filter((item) => item.selected == true)
-      .map((item) => `${item}`);
+      .map((item) => `${item.email}`);
+    console.log(recipients);
+
     sendToSubcribers({ template: sendTo, recipients });
     setSendTo({});
   };
