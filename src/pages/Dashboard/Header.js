@@ -10,6 +10,7 @@ import {
   setBlockList,
   setBodySettings,
 } from "../../components/EmailEditor/reducers";
+import { Icons } from "./../../components/ui/icons";
 
 const Header = ({ emailEditorEl, setLanguage }) => {
   const {
@@ -128,22 +129,31 @@ const Header = ({ emailEditorEl, setLanguage }) => {
   };
 
   return (
-    <div className="dashboard-header">
+    <div className="dashboard-header gap-3">
       <Modal {..._props} />
       <SaveModal {..._props} />
-      <div className="dashboard-header-title">Email Editor</div>
-      <div className="dashboard-header-feature">
-        <div className="dashboard-header-language">
+      <div className="dashboard-header-title mr-auto">Email Editor</div>
+      {/* <div className="dashboard-header-language">
           <span onClick={changeLanguage("en")}>EN</span>/
           <span onClick={changeLanguage("zh")}>中文</span>
+        </div> */}
+      <aside
+        onClick={() => emailEditorEl.current.clearTemplate()}
+        className="relative group cursor-pointer font-primary font-semibold"
+      >
+        <div className=" opacity-0 invisible scale-0 group-hover:opacity-100 group-hover:visible group-hover:scale-100 origin-bottom duration-200 absolute bg-white rounded-lg p-2 top-1/2 -translate-y-1/2 left-full shadow-box max-w-32 w-max z-50 text-sm">
+          Clear editor
         </div>
-        <Users onClick={() => setIsOpen(true)} className=" cursor-pointer" />
-        <div
-          onClick={() => setIsSave(true)}
-          className=" bg-primary text-white h-9 w-40 rounded-lg flex items-center justify-center text-base font-primary font-semibold cursor-pointer"
-        >
-          {editTemplate.name ? "Save Edit" : "Create Template"}
+        <div className="bg-white text-danger p-1 rounded-sm flex items-center justify-center text-base">
+          <Icons.delete className="w-5 h-5" />
         </div>
+      </aside>
+      <Users onClick={() => setIsOpen(true)} className=" cursor-pointer" />
+      <div
+        onClick={() => setIsSave(true)}
+        className=" bg-primary text-white h-9 w-40 rounded-lg flex items-center justify-center text-base font-primary font-semibold cursor-pointer"
+      >
+        {editTemplate.name ? "Save Edit" : "Save Template"}
       </div>
     </div>
   );

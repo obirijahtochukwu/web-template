@@ -8,6 +8,7 @@ import { api_url } from "../../../../lib/utils";
 import { GlobalContext } from "../../reducers";
 import { deepClone } from "../../utils/helpers";
 import useDataSource from "../../configs/useDataSource";
+import DeleteHover from "../../../ui/delete-hover";
 
 export default function VideosElement({ clearStyles }) {
   const [videos, setVideos] = useState([]);
@@ -113,14 +114,15 @@ export default function VideosElement({ clearStyles }) {
                     src: video_url,
                     alt: video_url,
                   })}
-                  className="photo-item bg-black h-fit"
+                  className="photo-item max-h-20 rounded-md border border-dashed border-primary/50 relative overflow-hidden group"
                 >
+                  <DeleteHover />
                   <video controls="controls" preload="none">
                     <source
                       src={video_url}
                       type="video/mp4"
                       style={{ background: "blue" }}
-                      className="width-full"
+                      className="width-full h-full"
                     />
                   </video>
                 </motion.div>

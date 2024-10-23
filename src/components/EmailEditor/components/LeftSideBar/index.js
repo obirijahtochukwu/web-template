@@ -29,6 +29,8 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { api_url } from "../../../../lib/utils";
 import VideosElement from "./videos";
+import { Icons } from "./../../../ui/icons";
+import DeleteHover from "../../../ui/delete-hover";
 
 const LeftSideBar = (props) => {
   const { clearStyles } = props;
@@ -205,7 +207,8 @@ const LeftSideBar = (props) => {
           </p>
         </div>
         <div className="photos-body">
-          <div className="photos-container overflow-auto !h-[calc(100%-150px)] default-scrollbar">
+          <div className="photos-container overflow-auto !max-h-[calc(100%-150px)] default-scrollbar">
+            {console.log(imgs)}
             {!loading.state
               ? imgs?.map(({ image_url }, index) => (
                   <motion.div
@@ -219,13 +222,14 @@ const LeftSideBar = (props) => {
                       src: image_url,
                       alt: image_url,
                     })}
-                    className="photo-item"
+                    className="photo-item max-h-20 rounded-md border border-dashed border-primary/50 relative overflow-hidden group"
                   >
                     <img
                       src={image_url}
                       alt={image_url}
                       className="width-full"
                     />
+                    <DeleteHover />
                   </motion.div>
                 ))
               : Array(6)

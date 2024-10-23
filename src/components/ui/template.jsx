@@ -38,12 +38,23 @@ export default function Template({
       .catch((err) => console.error("Error deleting template:", err));
   };
 
+  const large_text = name.length > 12 ? true : false;
+
   return (
     <div className=" col-span-4 flex items-center gap-2 text-sm font-medium h-10 bg-gray px-3 py-0 rounded-md">
       <div className="">
         <Icons.template className=" w-4" />
       </div>
-      <div className=" truncate">{name}</div> {template.id}
+      <div className="relative group">
+        {large_text && (
+          <aside className=" opacity-0 invisible scale-0 group-hover:opacity-100 group-hover:visible group-hover:scale-100 origin-bottom duration-200 absolute bg-white rounded-lg p-2 bottom-full right-0 shadow-box max-w-32 w-max">
+            {name}
+          </aside>
+        )}
+        <div className="whitespace-nowrap cursor-pointer">
+          {large_text ? `${name.substring(0, 12)}...` : name}
+        </div>
+      </div>
       <DropdownMenu className={"ml-auto w-fit h-fit"}>
         <Icons.bar className="cursor-pointer h-3 w-3 opacity-60" />
         <DropdownMenuContent>

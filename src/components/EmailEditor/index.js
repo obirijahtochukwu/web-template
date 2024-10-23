@@ -38,6 +38,9 @@ const EmailEditor = forwardRef(
         dispatch(setBodySettings(bodySettings));
         dispatch(setBlockList(blockList));
       },
+      clearTemplate: () => {
+        dispatch(setBlockList([]));
+      },
       savedHtml: () => {
         return {
           bodysettings: state.bodySettings,
