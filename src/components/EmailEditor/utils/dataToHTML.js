@@ -327,7 +327,9 @@ const dataToHtml = ({ bodySettings, blockList }) => {
   </head>
   <body>
   <div style="opacity:0;">${bodySettings.preHeader}</div>
-  <div style="background-color:${bodySettings.styles.backgroundColor};color:${bodySettings.styles.color}; font-family:${bodySettings.styles.fontFamily};"> ${content}</div>
+  <div style="background-color:${bodySettings.styles.backgroundColor};background-size: cover;
+    background-image: ${bodySettings.styles.background};
+    background-position: no-repeat;color:${bodySettings.styles.color}; font-family:${bodySettings.styles.fontFamily};"> ${content}</div>
   </body>
   </html>`;
 };

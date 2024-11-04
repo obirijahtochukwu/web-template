@@ -6,6 +6,10 @@ import { InputNumber, Input } from "antd";
 import StyleSettings from "../StyleSettings";
 import useLayout from "../../utils/useStyleLayout";
 import useTranslation from "../../translation";
+import { Icons } from "./../../../ui/icons";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+import { api_url } from "./../../../../lib/utils";
 
 const RightSetting = () => {
   const { currentItem, isDragStart, bodySettings, setBodySettings } =
@@ -53,6 +57,36 @@ const RightSetting = () => {
     );
   };
 
+  const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 10,
+    accept: {
+      "image/jpeg": [".jpeg"],
+      "image/png": [".png"],
+    },
+    onDrop: (acceptedFiles) => {
+      const formData = new FormData();
+      formData.append(`image`, acceptedFiles[0]);
+      axios
+        .post(api_url + "upload_bg_image/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          setBodySettings(
+            {
+              ...bodySettings,
+              styles: {
+                ...bodySettings.styles,
+                background: `url('${res.data.image_url}')`,
+              },
+            },
+            "set_body_settings"
+          );
+        });
+    },
+  });
+
   const themeElement = () => {
     return (
       <>
@@ -71,6 +105,12 @@ const RightSetting = () => {
               color={bodySettings.styles.backgroundColor}
               setColor={colorChange("backgroundColor")}
             />
+          )}
+          {cardItemElement(
+            t("email_theme_background_image"),
+            <div {...getRootProps()} className=" h-7 w-7 cursor-pointer">
+              <Icons.gallery />
+            </div>
           )}
           {cardItemElement(
             t("line_height"),

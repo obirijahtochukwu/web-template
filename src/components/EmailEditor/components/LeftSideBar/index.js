@@ -203,7 +203,7 @@ const LeftSideBar = (props) => {
             <span class="font-semibold">Click to upload</span>
           </p>
           <p class="text-xs text-gray-500 dark:text-gray-400">
-            SVG, PNG, JPG or GIF (MAX. 800x400px)
+            SVG, PNG, JPG or GIF
           </p>
         </div>
         <div className="photos-body">

@@ -98,6 +98,9 @@ export const defaultBodySettings = {
     backgroundColor: "#9ca3af",
     color: "#000",
     fontFamily: "Arial",
+    backgroundSize: "cover",
+    background: "",
+    backgroundPosition: "no-repeat",
   },
 };
 export const defaultSelectionRange = null;

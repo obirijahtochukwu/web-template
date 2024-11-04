@@ -12,7 +12,14 @@ import useTranslation from "../../translation";
 const ButtonStyleSettings = () => {
   const { currentItem, previewMode } = useContext(GlobalContext);
   const { t } = useTranslation();
-  const { findStyleItem, cardItemElement, colorChange, paddingChange, inputChange, updateItemStyles } = useLayout();
+  const {
+    findStyleItem,
+    cardItemElement,
+    colorChange,
+    paddingChange,
+    inputChange,
+    updateItemStyles,
+  } = useLayout();
 
   const buttonActionElement = () => {
     const { linkURL } = currentItem.data;
@@ -25,8 +32,13 @@ const ButtonStyleSettings = () => {
 
     return (
       <div>
-        <div className="right-setting-block-item-title">{t("button_action")}</div>
-        {cardItemElement(t("action_type"), <div className="link-tag">{t("link")}</div>)}
+        <div className="right-setting-block-item-title">
+          {t("button_action")}
+        </div>
+        {cardItemElement(
+          t("action_type"),
+          <div className="link-tag">{t("link")}</div>
+        )}
         <div className="card-item-title">{t("link_url")}</div>
         <div className="margin-top-6">
           <Input addonBefore="https://" value={linkURL} onChange={linkChange} />
@@ -47,13 +59,28 @@ const ButtonStyleSettings = () => {
 
     return (
       <>
-        <div className="right-setting-block-item-title"> {t("padding_settings")}</div>
+        <div className="right-setting-block-item-title">
+          {" "}
+          {t("padding_settings")}
+        </div>
         <PaddingSettings
           padding={{
-            paddingTop: findStyleItem(currentItem.data.contentStyles, "paddingTop"),
-            paddingRight: findStyleItem(currentItem.data.contentStyles, "paddingRight"),
-            paddingLeft: findStyleItem(currentItem.data.contentStyles, "paddingLeft"),
-            paddingBottom: findStyleItem(currentItem.data.contentStyles, "paddingBottom"),
+            paddingTop: findStyleItem(
+              currentItem.data.contentStyles,
+              "paddingTop"
+            ),
+            paddingRight: findStyleItem(
+              currentItem.data.contentStyles,
+              "paddingRight"
+            ),
+            paddingLeft: findStyleItem(
+              currentItem.data.contentStyles,
+              "paddingLeft"
+            ),
+            paddingBottom: findStyleItem(
+              currentItem.data.contentStyles,
+              "paddingBottom"
+            ),
           }}
           setPadding={updateContentStylesPadding}
         />
@@ -66,30 +93,76 @@ const ButtonStyleSettings = () => {
     const color = findStyleItem(currentItem.data.styles, "color");
     const fontFamily = findStyleItem(currentItem.data.styles, "fontFamily");
     const fontSize = findStyleItem(currentItem.data.styles, "fontSize");
+    const borderWidth = findStyleItem(currentItem.data.styles, "borderWidth");
     const lineHeight = findStyleItem(currentItem.data.styles, "lineHeight");
-    const backgroundColor = findStyleItem(currentItem.data.styles, "backgroundColor");
-    const fontFamilyList = ["sans-serif", "Arial", "仿宋", "黑体", "", "Times New Roman", "Garamond", "Georgia", "Courier New", "cursive","Golden-Ranger"];
+    const borderColor = findStyleItem(currentItem.data.styles, "borderColor");
+    const backgroundColor = findStyleItem(
+      currentItem.data.styles,
+      "backgroundColor"
+    );
+    const fontFamilyList = [
+      "sans-serif",
+      "Arial",
+      "仿宋",
+      "黑体",
+      "",
+      "Times New Roman",
+      "Garamond",
+      "Georgia",
+      "Courier New",
+      "cursive",
+      "Golden-Ranger",
+    ];
 
     return (
       <>
-        <div className="right-setting-block-item-title">{t("button_styles")}</div>
+        <div className="right-setting-block-item-title">
+          {t("button_styles")}
+        </div>
         {cardItemElement(
           t("width_auto"),
           <Switch
             checked={width === "auto"}
-            className={classNames(width === "auto" ? "switch-active" : "switch-disabled")}
+            className={classNames(
+              width === "auto" ? "switch-active" : "switch-disabled"
+            )}
             onChange={() => {
               const value = width === "auto" ? "100%" : "auto";
               inputChange("width")(value);
             }}
           />
         )}
-        {width !== "auto" && <Slider value={Number(width.replace("%", ""))} onChange={(value) => inputChange("width")(value + "%")} />}
-        {cardItemElement(t("font_color"), <ColorPicker color={color} setColor={colorChange("color")} />)}
-        {cardItemElement(t("button_color"), <ColorPicker color={backgroundColor} setColor={colorChange("backgroundColor")} />)}
+        {width !== "auto" && (
+          <Slider
+            value={Number(width.replace("%", ""))}
+            onChange={(value) => inputChange("width")(value + "%")}
+          />
+        )}
+        {cardItemElement(
+          t("font_color"),
+          <ColorPicker color={color} setColor={colorChange("color")} />
+        )}
+        {cardItemElement(
+          t("button_color"),
+          <ColorPicker
+            color={backgroundColor}
+            setColor={colorChange("backgroundColor")}
+          />
+        )}
+        {cardItemElement(
+          t("border_color"),
+          <ColorPicker
+            color={borderColor}
+            setColor={colorChange("borderColor")}
+          />
+        )}
         {cardItemElement(
           t("font_family"),
-          <Select className="input-width" value={fontFamily} onChange={inputChange("fontFamily")}>
+          <Select
+            className="input-width"
+            value={fontFamily}
+            onChange={inputChange("fontFamily")}
+          >
             {fontFamilyList.map((item) => (
               <Select.Option key={item} value={item}>
                 {item}
@@ -99,8 +172,25 @@ const ButtonStyleSettings = () => {
         )}
         {cardItemElement(
           t("font_size"),
-          <InputNumber min={0} className="input-width" addonAfter="px" value={fontSize} onChange={inputChange("fontSize")} />
+          <InputNumber
+            min={0}
+            className="input-width"
+            addonAfter="px"
+            value={fontSize}
+            onChange={inputChange("fontSize")}
+          />
         )}
+        {cardItemElement(
+          t("border_width"),
+          <InputNumber
+            min={0}
+            className="input-width"
+            addonAfter="px"
+            value={borderWidth}
+            onChange={inputChange("borderWidth")}
+          />
+        )}
+
         {cardItemElement(
           t("line_height"),
           <InputNumber
@@ -115,9 +205,15 @@ const ButtonStyleSettings = () => {
         <PaddingSettings
           padding={{
             paddingTop: findStyleItem(currentItem.data.styles, "paddingTop"),
-            paddingRight: findStyleItem(currentItem.data.styles, "paddingRight"),
+            paddingRight: findStyleItem(
+              currentItem.data.styles,
+              "paddingRight"
+            ),
             paddingLeft: findStyleItem(currentItem.data.styles, "paddingLeft"),
-            paddingBottom: findStyleItem(currentItem.data.styles, "paddingBottom"),
+            paddingBottom: findStyleItem(
+              currentItem.data.styles,
+              "paddingBottom"
+            ),
           }}
           setPadding={paddingChange}
         />
