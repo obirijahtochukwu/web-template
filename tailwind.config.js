@@ -6,6 +6,7 @@ module.exports = {
     "./src/components/ui/*.{js,ts,jsx,tsx}",
     "./src/components/EmailEditor/utils/auth.jsx",
     "./src/components/EmailEditor/components/RightSetting/index.js",
+    "./src/components//EmailEditor/components/ColorPicker/index.js",
   ],
   theme: {
     extend: {

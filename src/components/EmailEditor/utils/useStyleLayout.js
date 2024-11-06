@@ -3,7 +3,8 @@ import { GlobalContext } from "../reducers";
 import { deepClone } from "./helpers";
 
 const useLayout = () => {
-  const { previewMode, currentItem, blockList, setBlockList, setCurrentItem } = useContext(GlobalContext);
+  const { previewMode, currentItem, blockList, setBlockList, setCurrentItem } =
+    useContext(GlobalContext);
 
   const findStyleItem = (styles, key) => {
     let styleItem = styles[previewMode][key];
@@ -15,9 +16,21 @@ const useLayout = () => {
 
   const cardItemElement = (title, dom) => {
     return (
-      <div className="card-item">
-        <div className="card-item-title">{title}</div>
+      <div
+        style={{
+          justifyContent: title.includes("Color") ? " start" : "",
+          gap: "6px",
+          alignItems: title.includes("Color") ? " center" : "",
+        }}
+        className="card-item"
+      >
+        {title.includes("Color") || (
+          <div className="card-item-title">{title}</div>
+        )}
         <div>{dom}</div>
+        {title.includes("Color") && (
+          <div className="card-item-title">{title}</div>
+        )}
       </div>
     );
   };
@@ -61,7 +74,8 @@ const useLayout = () => {
       newBlockList[currentItem.index] = newData;
     } else {
       const indexArr = currentItem.index.split("-");
-      newBlockList[indexArr[0]].children[indexArr[1]].children[indexArr[2]] = newData;
+      newBlockList[indexArr[0]].children[indexArr[1]].children[indexArr[2]] =
+        newData;
     }
 
     setBlockList(newBlockList, `edit_${new Date().getTime()}`);
