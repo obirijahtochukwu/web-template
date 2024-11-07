@@ -169,6 +169,9 @@
                 "paddingLeft": 20,
                 "paddingRight": 20,
                 "backgroundColor": "#865548",
+                "borderWidth": 5,
+                "borderColor": "orange",
+                "borderStyle": "solid",
                 "color": "#fff",
                 "display": "inline-block"
               },
